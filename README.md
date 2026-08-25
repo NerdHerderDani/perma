@@ -89,8 +89,12 @@ It's receipts. Perma shows what the chain records — burn transactions, supply
 reads, epoch boundaries — and nothing else. No prices, no projections, no
 advice of any kind.
 
-<!-- DISCLOSURE SECTION INTENTIONALLY ABSENT: exact wording requires operator
-approval before it enters any commit. See PR discussion. -->
+## Disclosure
+
+The author holds JTO, works at Jito Labs, and earns JTX referral fees. Perma
+is designed so that this doesn't matter: every figure is independently
+recomputable from raw chain data via your own RPC. Perma contains no referral
+links.
 
 ## License
 
