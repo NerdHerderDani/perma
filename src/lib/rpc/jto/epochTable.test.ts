@@ -55,4 +55,20 @@ describe("reconstructSupply", () => {
     expect(points[points.length - 1]?.supplyRaw).toBe("1000");
     expect(points[points.length - 1]?.slot).toBe(100);
   });
+
+  it("collapses two burns sharing a slot into one step (dust-batch tx, or two txs same slot)", () => {
+    const points = reconstructSupply({ supplyRaw: "1000", slot: 200 }, [
+      burn(100, "10"),
+      burn(100, "5"),
+    ]);
+    // Slot sequence must be non-decreasing oldest -> newest: no backwards jump.
+    for (let i = 1; i < points.length; i++) {
+      expect(points[i]!.slot).toBeGreaterThanOrEqual(points[i - 1]!.slot);
+    }
+    // The two same-slot burns are summed into a single before/after step.
+    expect(points[0]?.slot).toBe(99);
+    expect(points[0]?.supplyRaw).toBe("1015");
+    expect(points[1]?.slot).toBe(100);
+    expect(points[1]?.supplyRaw).toBe("1000");
+  });
 });
