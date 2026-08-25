@@ -43,20 +43,34 @@ export interface SupplyPoint {
  * Reconstruct supply-over-time backwards from a live reading using observed
  * burn events: supply before a burn = supply after it + the burned amount.
  * Exact within the scanned window; the chart labels the window it covers.
+ *
+ * Burns are first collapsed per slot. Two burns can share a slot — a
+ * multi-mint dust-batch tx that happens to include two JTO burns, or two
+ * independent burn txs landing in the same slot — and treating each as its
+ * own "slot - 1" step produces a slot sequence that goes backwards
+ * (e.g. 99 → 100 → 99 → 100) instead of stepping monotonically through time.
  */
 export function reconstructSupply(
   current: { supplyRaw: string; slot: number },
   burns: readonly BurnEvent[],
 ): SupplyPoint[] {
-  const sorted = [...burns].sort((a, b) => b.slot - a.slot);
+  const bySlot = new Map<number, { amountRaw: bigint; blockTime: number | null }>();
+  for (const b of burns) {
+    const amount = BigInt(b.amountRaw);
+    const existing = bySlot.get(b.slot);
+    if (existing) existing.amountRaw += amount;
+    else bySlot.set(b.slot, { amountRaw: amount, blockTime: b.blockTime });
+  }
+  const slots = [...bySlot.entries()].sort(([a], [b]) => b - a);
+
   const points: SupplyPoint[] = [
     { slot: current.slot, blockTime: null, supplyRaw: current.supplyRaw },
   ];
   let running = BigInt(current.supplyRaw);
-  for (const b of sorted) {
-    points.push({ slot: b.slot, blockTime: b.blockTime, supplyRaw: running.toString() });
-    running += BigInt(b.amountRaw);
-    points.push({ slot: b.slot - 1, blockTime: b.blockTime, supplyRaw: running.toString() });
+  for (const [slot, { amountRaw, blockTime }] of slots) {
+    points.push({ slot, blockTime, supplyRaw: running.toString() });
+    running += amountRaw;
+    points.push({ slot: slot - 1, blockTime, supplyRaw: running.toString() });
   }
   return points.reverse();
 }
