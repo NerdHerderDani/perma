@@ -70,7 +70,18 @@ npm run dev
 | Per-epoch table with explorer links           | ✅                |
 | Supply chart (reconstructed from burn events) | ✅                |
 | Methodology tab                               | ✅                |
-| Layer 2 Rev Splitter attribution              | see DECODING.md   |
+| Layer 2 Rev Splitter attribution              | ⏳ UNVERIFIED     |
+
+**Why Layer 2 is UNVERIFIED (2026-08-24):** the Rev Splitter has no public
+on-chain footprint yet — the JIP-38 text names no addresses, no on-chain vote
+record exists (the governance program's proposals end at JIP-37), the promised
+per-epoch dashboards have not been published, and every JTO burn observed
+on-chain in the checked window is third-party dust. No programmatic buyback
+burn has happened yet. The full negative-result evidence is in
+[`DECODING.md`](src/lib/rpc/jto/DECODING.md) §6, along with the
+re-verification trigger. Perma is built and watching: the moment the pipeline
+appears on-chain, it gets verified against live transactions and attribution
+lights up.
 
 ## Not financial advice
 

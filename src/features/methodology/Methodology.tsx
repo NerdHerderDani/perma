@@ -82,11 +82,15 @@ export function Methodology() {
           </p>
         ) : (
           <p style={{ color: "var(--perma-amber)" }}>
-            NO VERIFIED REV SPLITTER ADDRESS YET. Perma could not confirm the fee-collection /
-            buyback / burn pipeline accounts against live chain evidence at build time, so every
-            attributed figure renders UNVERIFIED — never estimated, never interpolated. When the
-            addresses are verifiable, they ship with verification dates and the evidence trail in
-            DECODING.md. Layer 1 above is unaffected: mint-level burns are chain fact either way.
+            NO VERIFIED REV SPLITTER ADDRESS YET. As of 2026-08-24 the Rev Splitter has no public
+            on-chain footprint: the JIP-38 text names no addresses, no on-chain vote record exists
+            (the governance program&apos;s proposals end at JIP-37), the promised per-epoch
+            dashboards have not been published, and every JTO burn observed on-chain in the checked
+            window is third-party dust — no programmatic buyback burn has happened yet. So every
+            attributed figure renders UNVERIFIED — never estimated, never interpolated. The full
+            negative-result evidence trail is in DECODING.md §6; the moment the pipeline appears
+            on-chain it gets verified against live transactions and shipped with dates. Layer 1
+            above is unaffected: mint-level burns are chain fact either way.
           </p>
         )}
         <p className="mt-2">
@@ -110,18 +114,24 @@ export function Methodology() {
 
       <Section title="EPOCHS">
         <p>
-          Epoch boundaries use mainnet&apos;s constant 432,000 slots/epoch, anchored to a live{" "}
-          <code>getEpochInfo</code> read rather than a hardcoded genesis alignment. JIP-38&apos;s
-          own disclosure cadence is per Solana epoch (~2–2.5 days).
+          Epoch boundaries use mainnet&apos;s constant 432,000 slots/epoch (confirmed via{" "}
+          <code>getEpochSchedule</code>, no warmup), anchored to a live <code>getEpochInfo</code>{" "}
+          read rather than a hardcoded genesis alignment. JIP-38 promises &ldquo;per-epoch&rdquo;
+          reporting without defining the term; the standard Solana epoch (~2–2.5 days) is the
+          natural reading and the one Perma uses — stated here as an assumption, not a fact.
         </p>
       </Section>
 
       <Section title="COMPARISON AGAINST OFFICIAL DISCLOSURES">
         <p>
           JIP-38 commits Jito to publishing fees collected / JTO acquired / JTO burned every epoch.
-          Perma&apos;s numbers are computed independently from raw chain data so you can check the
-          official reports instead of trusting them. Agreement is the product working; divergence is
-          a finding worth surfacing (open an issue with both numbers and the epoch).
+          As of 2026-08-24{" "}
+          <span style={{ color: "var(--perma-amber)" }}>no such disclosure exists yet</span> — the
+          only official dashboard (the JTO Economic Hub) reports weekly revenue with no JTX,
+          buyback, or burn line. Perma&apos;s numbers are computed independently from raw chain data
+          so that when the promised dashboards appear, holders can check them instead of trusting
+          them. Agreement is the product working; divergence is a finding worth surfacing (open an
+          issue with both numbers and the epoch).
         </p>
       </Section>
 
