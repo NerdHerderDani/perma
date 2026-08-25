@@ -16,7 +16,7 @@ Perma runs frost.
 JIP-38 promises per-epoch disclosure of fees collected, JTO acquired, and JTO
 burned, executed by the Rev Splitter under Dev Council management. Perma is the
 independent verifier: the same numbers, recomputed from raw chain data through
-whatever RPC endpoint *you* supply, so holders can check the official reports
+whatever RPC endpoint _you_ supply, so holders can check the official reports
 instead of trusting them. Agreement is the product working; divergence is a
 finding worth surfacing.
 
@@ -63,14 +63,14 @@ npm run dev
 
 ## Status
 
-| Surface                                        | State             |
-| ---------------------------------------------- | ----------------- |
-| Terminal UI, tabs, boot sequence               | ✅                |
-| Layer 1 mint-truth burns (live + fixtures)     | ✅ fixture-tested |
-| Per-epoch table with explorer links            | ✅                |
-| Supply chart (reconstructed from burn events)  | ✅                |
-| Methodology tab                                | ✅                |
-| Layer 2 Rev Splitter attribution               | see DECODING.md   |
+| Surface                                       | State             |
+| --------------------------------------------- | ----------------- |
+| Terminal UI, tabs, boot sequence              | ✅                |
+| Layer 1 mint-truth burns (live + fixtures)    | ✅ fixture-tested |
+| Per-epoch table with explorer links           | ✅                |
+| Supply chart (reconstructed from burn events) | ✅                |
+| Methodology tab                               | ✅                |
+| Layer 2 Rev Splitter attribution              | see DECODING.md   |
 
 ## Not financial advice
 
